@@ -10,7 +10,7 @@
  * - Add ability to switch motion sensor on and off (i.e. stop reading data)
  */
  
-const int ledPin = 13;                  // Pin for LED 
+const int ledPin = 4;                  // Pin for LED 
 const int inputPin = 2;                 // Pin for PIR sensor input
 
 
@@ -31,7 +31,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);      // declare LED as output
   pinMode(inputPin, INPUT);     // declare sensor as input
   
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
  
 void loop(){
@@ -40,7 +40,7 @@ void loop(){
   if (sensorVal) {                           // If motion is detected
     digitalWrite(ledPin, HIGH);              // Turn LED ON    
     if (pirState == LOW) {
-      Serial.println("Motion detected!");
+      //Serial.println("Motion detected!");
       previousMillis = millis();
       pirState = HIGH;
     }
@@ -53,19 +53,21 @@ void loop(){
       if(totalDurationMillis < 0){ totalDurationMillis = 0;}  
 
       if(totalDurationMillis > longMotionThreshold){ // If duration of motion exceeds threshold of being "short"
-        Serial.println("Long motion detected");
+        //Serial.println("Long motion detected");
         numOfLongMotion++;
       }
       else{
-        Serial.println("Short motion detected");
+        //Serial.println("Short motion detected");
         numOfShortMotion++;
       }
 
       numOfTotalMotion = numOfShortMotion + numOfLongMotion;
-      
-      Serial.println("Duration: " + (String)totalDurationMillis + "ms"); // Debugging purposes (Since the sensor has a minimum of ~5s detection, this will not be accurate under 5s)
 
-      Serial.println("Motion ended!\n\nNumber of total short motions: " + (String)numOfShortMotion + "\nNumber of total long motions: " + (String)numOfLongMotion + "\nTotal number of motions detected: " + (String)(numOfTotalMotion) + "\n"); // Debugging purposes
+      Serial.println(numOfTotalMotion);
+      delay(200);
+      //Serial.println("Duration: " + (String)totalDurationMillis + "ms"); // Debugging purposes (Since the sensor has a minimum of ~5s detection, this will not be accurate under 5s)
+
+      //Serial.println("Motion ended!\n\nNumber of total short motions: " + (String)numOfShortMotion + "\nNumber of total long motions: " + (String)numOfLongMotion + "\nTotal number of motions detected: " + (String)(numOfTotalMotion) + "\n"); // Debugging purposes
       
       pirState = LOW;
     }
