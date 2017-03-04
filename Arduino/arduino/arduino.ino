@@ -55,15 +55,21 @@ void loop(){
       if(totalDurationMillis > longMotionThreshold){ // If duration of motion exceeds threshold of being "short"
         //Serial.println("Long motion detected");
         numOfLongMotion++;
+        //Serial.println(String(numOfLongMotion) + " numLMotion");
       }
       else{
         //Serial.println("Short motion detected");
         numOfShortMotion++;
+        //Serial.println(String(numOfShortMotion) + " numSMotion");
       }
 
       numOfTotalMotion = numOfShortMotion + numOfLongMotion;
 
-      Serial.println(numOfTotalMotion);
+      delay(200);
+      //Serial.println(String(numOfTotalMotion) + " numTotal");
+
+      Serial.println("STATS: " + (String)numOfTotalMotion + " " + (String)numOfShortMotion + " " + (String)numOfLongMotion);
+      
       delay(200);
       //Serial.println("Duration: " + (String)totalDurationMillis + "ms"); // Debugging purposes (Since the sensor has a minimum of ~5s detection, this will not be accurate under 5s)
 
