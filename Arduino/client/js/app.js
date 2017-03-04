@@ -16,6 +16,8 @@
     $totalShortMotions = $('#totalSMotionP'),
     $totalLongMotions = $('#totalLMotionP'),
 
+    //splitInput;
+
     toggleledStatus = function() {
       ledStatus = ledStatus === 'Disable' ? 'Enable' : 'Disable';
       socket.emit('ledStatusMessage', ledStatus);
@@ -26,24 +28,33 @@
     //   socket.emit('motionSensorStatus', motionToggleStatus);
     // },
 
-    onSocketNotification = function(data) {
-      // $totalLongMotions.text("LONG MOTION COUNTER");
-      // $totalShortMotions.text("SHORT MOTION COUNTER");
-      // $totalMotions.text("TOTAL MOTIONS");
-      
-      $totalMotions.text(data);
-      if(data.includes("off")){
-        $ledStatus.text("Disable");
-      }
-      else{
-        $ledStatus.text("Enable");
-      }
+
+    //   if(data.includes("off")){
+    //     $ledStatus.text("Disable");
+    //   }
+    //   else{
+    //     $ledStatus.text("Enable");
+    //   }
+    // },
+
+    updateStats = function(data) {
+      var splitInput;
+
+      splitInput = data.split(" ");
+
+      $totalMotions.text(splitInput[1]);
+      $totalShortMotions.text(splitInput[2]);
+      $totalLongMotions.text(splitInput[3]);
+
+
     };
 
-
-  socket.on('data', onSocketNotification);
+  //socket.on('data', onSocketNotification);
+  socket.on('statData', updateStats);
   $ledToggleBtn.on('click', toggleledStatus);
   //$motionToggleBtn.on('click', toggleMotionStatus);
 
   socket.emit('ledStatusMessage', ledStatus);
+
+  //socket emit UPDATE STATUS so when load page new data is pulled!!
 }());

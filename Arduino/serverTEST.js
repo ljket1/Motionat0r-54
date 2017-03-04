@@ -9,6 +9,7 @@ var io = require('socket.io').listen(server);
 app.use(express.static(__dirname + '/client'));
 
 var sp = new SerialPort("/dev/ttyACM0", {baudRate: 115200}); // replace "/dev/ttyACM0" with your port address
+//var splitInput;
 
 arduinoMessage = '';
 
@@ -43,9 +44,23 @@ sendMessage = function(buffer, socket) {
   arduinoMessage += buffer.toString();
 
   if (arduinoMessage.indexOf('\r') >= 0) {
+    splitInput = arduinoMessage.split(" ");
+
+    if(splitInput[0].includes("STATS:")){
+      // socket.emit('numTotal', splitInput[1]);
+      // socket.emit('numSTotal', splitInput[2]);
+      // socket.emit('numLTotal', splitInput[3]);
+      socket.emit('statData', arduinoMessage);
+      console.log("here");
+      //socket.emit('data', splitInput[1]);
+    }
+
+    // else if(String(splitInput[1]).includes("num")){
+    //   console.log("asd");
+    // }
 
     
-    socket.emit('data', arduinoMessage);
+    
     // reset the output string to an empty value
     arduinoMessage = '';
   }
