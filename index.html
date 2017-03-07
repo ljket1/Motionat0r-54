@@ -31,13 +31,13 @@
 
         (function() {
           'use strict';
-          
+
             var socket = io.connect('http://0.0.0.0:3000'),
-            
+
             $ledToggleBtn = $('#toggleLedButton'),
             $ledStatus = $('#tLBSpan', $ledToggleBtn),
             ledStatus = 'Disable',
-            
+
             $motionToggleBtn = $('#toggleMotionButton'),
             $motionToggleStatus = $('#tMBSpan', $motionToggleBtn),
             motionToggleStatus = 'Disable',
@@ -65,16 +65,10 @@
 
 
           socket.on('update', updateData);
-          
+
           $ledToggleBtn.on('click', toggleledStatus);
           $motionToggleBtn.on('click', toggleMotionStatus);
-
-
-        }());    
-        
-
-
+        }());
     </script>
-    
 </body>
 </html>

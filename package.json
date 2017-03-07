@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ljket1/Motionat0r-54#readme",
   "dependencies": {
     "express": "^4.15.0",
-    "johnny-five": "^0.10.6"
+    "johnny-five": "^0.10.6",
+    "socket.io": "^1.7.3"
   }
 }
