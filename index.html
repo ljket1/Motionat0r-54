@@ -1,28 +1,42 @@
 <html>
 <head>
 
-    <title>Assignment 1</title>
+    <title>IoT Control Panel</title>
     <style>
     center {
         font-size: 100px;
         font-family:arial;
     }
+
     </style>
 </head>
 <body>
-    <button id = 'toggleLedButton'>
-        <span id = 'tLBSpan'>Enable</span>
-        led
-    </button>
 
-    <button id = 'toggleMotionButton'>
-        <span id = 'tMBSpan'>Enable</span>
-        motion sensor
-    </button>
+    <div style="text-align: center; padding-bottom: 10px; margin-left: 25%;margin-top: 15px; width: 50%">
 
-    <p>Total number of motions detected: <span id = totalMotionP>0</span></p>
-    <p>Total number of long motions detected: <span id = totalLMotionP>0</span></p>
-    <p>Total number of short motions detected: <span id = totalSMotionP>0</span></p>
+        <h2>IoT Control panel</h1>
+
+
+        <p><b>Total number of motions detected: </b><span id = totalMotionP>0</span></p>
+        <p><b>Total number of long motions detected: </b><span id = totalLMotionP>0</span></p>
+        <p><b>Total number of short motions detected: </b><span id = totalSMotionP>0</span></p>
+
+        <!-- <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="5" tabindex="0"> -->
+
+
+        <button id = 'toggleLedButton' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            <span id = 'tLBSpan'>Enable</span>
+            led
+        </button>
+
+
+        <button id = 'toggleMotionButton' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            <span id = 'tMBSpan'>Enable</span>
+            motion sensor
+        </button>
+
+
+    </div>
 
 
     <script src="socket.io/socket.io.js"></script>
@@ -61,6 +75,11 @@
                 $totalShortMotions.text(data["shortMotions"]);
                 $totalLongMotions.text(data["longMotions"]);
 
+                //motionTimeout
+
+
+                // if(data["ledStatus"])
+
             },// ledstatus, motionstatus
 
 
@@ -68,7 +87,16 @@
 
           $ledToggleBtn.on('click', toggleledStatus);
           $motionToggleBtn.on('click', toggleMotionStatus);
-        }());
+
+          //updateMotionTimeout
+
+        }());    
+        
+
+
     </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-pink.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </body>
 </html>
