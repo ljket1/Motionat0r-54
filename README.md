@@ -7,7 +7,7 @@
 * 7 x Jumper Cables
 
 ## Hardware Setup
-TODO: Hardware Diagram
+![Hardware diagram](https://github.com/ljket1/Motionat0r-54/blob/master/Hardware%20diagram.png)
 * LED Location
 * PIR Sensor Connections
 
