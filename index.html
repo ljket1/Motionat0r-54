@@ -1,0 +1,80 @@
+<html>
+<head>
+
+    <title>Assignment 1</title>
+    <style>
+    center {
+        font-size: 100px;
+        font-family:arial;
+    }
+    </style>
+</head>
+<body>
+    <button id = 'toggleLedButton'>
+        <span id = 'tLBSpan'>Enable</span>
+        led
+    </button>
+
+    <button id = 'toggleMotionButton'>
+        <span id = 'tMBSpan'>Enable</span>
+        motion sensor
+    </button>
+
+    <p>Total number of motions detected: <span id = totalMotionP>0</span></p>
+    <p>Total number of long motions detected: <span id = totalLMotionP>0</span></p>
+    <p>Total number of short motions detected: <span id = totalSMotionP>0</span></p>
+
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+
+        (function() {
+          'use strict';
+          
+            var socket = io.connect('http://0.0.0.0:3000'),
+            
+            $ledToggleBtn = $('#toggleLedButton'),
+            $ledStatus = $('#tLBSpan', $ledToggleBtn),
+            ledStatus = 'Disable',
+            
+            $motionToggleBtn = $('#toggleMotionButton'),
+            $motionToggleStatus = $('#tMBSpan', $motionToggleBtn),
+            motionToggleStatus = 'Disable',
+
+            $totalMotions = $('#totalMotionP'),
+            $totalShortMotions = $('#totalSMotionP'),
+            $totalLongMotions = $('#totalLMotionP'),
+
+            toggleledStatus = function() {
+              //ledStatus = ledStatus === 'Disable' ? 'Enable' : 'Disable';
+                socket.emit('ledToggle', ledStatus);
+            },
+
+            toggleMotionStatus = function(){
+              //motionToggleStatus = motionToggleStatus === 'Disable' ? 'Enable' : 'Disable';
+                socket.emit('motionSensorStatus', motionToggleStatus);
+            },
+
+            updateData = function(data){
+                $totalMotions.text(data["totalMotions"]);
+                $totalShortMotions.text(data["shortMotions"]);
+                $totalLongMotions.text(data["longMotions"]);
+
+            },// ledstatus, motionstatus
+
+
+          socket.on('update', updateData);
+          
+          $ledToggleBtn.on('click', toggleledStatus);
+          $motionToggleBtn.on('click', toggleMotionStatus);
+
+
+        }());    
+        
+
+
+    </script>
+    
+</body>
+</html>
