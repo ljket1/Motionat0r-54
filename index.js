@@ -58,15 +58,18 @@ board.on("ready", function() {
 
   io.on("connection", function(socket){
     console.log("Connection: " + Date.now());
+    io.emit('update', data); // This pushes new data to any page that connects to the server
 
     socket.on('toggleLed', function(msg) {
-        data["ledStatus"] = !data["ledStatus"]
+        //data["ledStatus"] = !data["ledStatus"];
+        data["ledStatus"] = msg;
     });
     socket.on('toggleMotionSensor', function(msg) {
-        data["motionSensorStatus"] = !data["motionSensorStatus"]
+        //data["motionSensorStatus"] = !data["motionSensorStatus"];
+        data["motionSensorStatus"] = msg;
     });
     socket.on('updateMotionTimeout', function(value) {
-        data["motionTimeout"] = parseInt(value)
+        data["motionTimeout"] = parseInt(value);
     });
   });
 });
