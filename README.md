@@ -28,7 +28,7 @@
 1. `npm install`
 2. `node index.js`
 
-#### IP Adresss
+#### IP Address
 Run the following script for an easy way to see public IP Address
 * `./ip.sh`
 
