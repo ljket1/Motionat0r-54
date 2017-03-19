@@ -1,7 +1,12 @@
 // Server
-var app = require("express")()
-var http = require("http").Server(app)
-var io = require("socket.io")(http)
+var express = require("express");
+var path = require('path');
+var app = express();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
+
+// Serve Static Files
+app.use("/public", express.static(__dirname + "/public"));
 
 // IoT Panel Page
 app.get("/", function (req, res) {
@@ -29,7 +34,7 @@ board.on("ready", function () {
     'ledStatus': true,
     'motionSensorStatus': true,
     'motionTimeout': 6
-  }
+  };
 
   motionSensor.on("calibrated", function () {
     console.log("Motion Sensor: Calibrated", Date.now());
