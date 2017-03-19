@@ -14,7 +14,7 @@ var $totalLongMotions = $('#totalLMotionP');
 
 var $delayThreshold = $('#delayThreshold');
 
-var toggleLedStatus = function () {
+var toggleLedStatus = function () { // function runs when toggle led button is pressed
   if (ledStatus) {
     socket.emit('toggleLed', false);
     $ledStatus.text("Enable");
@@ -27,7 +27,7 @@ var toggleLedStatus = function () {
   }
 };
 
-var toggleMotionStatus = function () {
+var toggleMotionStatus = function () {  // function runs when toggle motion button is pressed
   if (motionToggleStatus) {
     socket.emit('toggleMotionSensor', false);
     $motionToggleStatus.text("Enable");
@@ -40,14 +40,14 @@ var toggleMotionStatus = function () {
   }
 };
 
-var updateData = function (data) {
+var updateData = function (data) {  // updates the client page with data from server 
   $totalMotions.text(data["totalMotions"]);
   $totalShortMotions.text(data["shortMotions"]);
   $totalLongMotions.text(data["longMotions"]);
 
   $delayThreshold.text(data["motionTimeout"]);
 
-  if (data["ledStatus"] == true) {
+  if (data["ledStatus"] == true) { 
     $ledStatus.text("Disable");
     ledStatus = true;
   }
