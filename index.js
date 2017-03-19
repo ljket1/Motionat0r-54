@@ -31,42 +31,45 @@ board.on("ready", function() {
     'motionTimeout': 6
   }
 
-  motion.on("calibrated", function() {
-    console.log("Motion Sensor: Calibrated", Date.now().toUTCString());
+  motionSensor.on("calibrated", function() {
+    console.log("Motion Sensor: Calibrated", Date.now());
   });
 
-  motion.on("motionstart", function() {
-    curMotionTimestamp = Date.now()
-    console.log("Motion Sensor: Motion Detected (Start)", curMotionTimestamp);
-    if (data["ledStatus"])
-      led.on();
-  });
-
-  motion.on("motionend", function() {
-    console.log("Motion Sensor: Motion Detected (End)", Date.now());
-    if (data["ledStatus"])
-      led.off();
-    var diff = (curMotionTimestamp.getTime() - Date.now().getTime()) / 1000
-    if (diff < data["motionTimeout"]) {
-      data["shortMotions"]++;
-    } else {
-      data["longMotions"]++;
+  motionSensor.on("motionstart", function() {
+      if (data["motionSensorStatus"]) {
+        curMotionTimestamp = Date.now();
+        console.log("Motion Sensor: Motion Detected (Start)", curMotionTimestamp);
+        if (data["ledStatus"]) {
+          led.on();
+        }
     }
-    data["totalMotions"]++;
-    io.emit('update', data)
+  });
+
+  motionSensor.on("motionend", function() {
+    led.off(); // Turn the LED off regardless
+    if (data["motionSensorStatus"]) {
+      console.log("Motion Sensor: Motion Detected (End)", Date.now());
+      var diff = (Date.now() - curMotionTimestamp) / 1000;
+      console.log("Motion Sensor: Time Difference", diff)
+      if (diff < data["motionTimeout"]) {
+        data["shortMotions"]++;
+      } else {
+        data["longMotions"]++;
+      }
+      data["totalMotions"]++;
+      io.emit('update', data)
+    }
   });
 
   io.on("connection", function(socket){
     console.log("Connection: " + Date.now());
     io.emit('update', data); // This pushes new data to any page that connects to the server
 
-    socket.on('toggleLed', function(msg) {
-        //data["ledStatus"] = !data["ledStatus"];
-        data["ledStatus"] = msg;
+    socket.on('toggleLed', function(value) {
+        data["ledStatus"] = value;
     });
-    socket.on('toggleMotionSensor', function(msg) {
-        //data["motionSensorStatus"] = !data["motionSensorStatus"];
-        data["motionSensorStatus"] = msg;
+    socket.on('toggleMotionSensor', function(value) {
+        data["motionSensorStatus"] = value;
     });
     socket.on('updateMotionTimeout', function(value) {
         data["motionTimeout"] = parseInt(value);

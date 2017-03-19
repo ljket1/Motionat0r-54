@@ -2,7 +2,7 @@
 <head>
 
     <title>IoT Control Panel</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <style>
     title {
         font-size: 15px;
@@ -27,7 +27,7 @@
             <input class="mdl-slider mdl-js-slider" type="range" min="6" max="25" value="6" tabindex="0" oninput="showMessage(this.value)" onchange="showMessage(this.value)">
             <span style="float: right;margin-top: -20px;" id="delayThreshold">6</span>
         </div>
- 
+
 
         <button id = 'toggleLedButton' class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             <span id = 'tLBSpan'>Enable</span>
@@ -40,7 +40,7 @@
             motion sensor
         </button>
     </div>
-   
+
 
     <script src="socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -69,7 +69,7 @@
 
                 $motionToggleBtn = $('#toggleMotionButton'),
                 $motionToggleStatus = $('#tMBSpan', $motionToggleBtn),
-                motionToggleStatus = 'Disable',
+                motionToggleStatus = true,
 
                 $totalMotions = $('#totalMotionP'),
                 $totalShortMotions = $('#totalSMotionP'),
@@ -78,27 +78,27 @@
                 $delayThreshold = $('#delayThreshold'),
 
                 toggleLedStatus = function() {
-                    if(ledStatus){ 
+                    if(ledStatus){
                         socket.emit('toggleLed', false);
-                        $ledStatus.text("Enable"); 
+                        $ledStatus.text("Enable");
                         ledStatus = false;
                     }
                     else{
                         socket.emit('toggleLed', true);
-                        $ledStatus.text("Disable"); 
+                        $ledStatus.text("Disable");
                         ledStatus = true;
                     }
                 },
 
                 toggleMotionStatus = function(){
-                    if(motionToggleStatus){ 
-                        socket.emit('motionSensorStatus', false);
-                        $motionToggleStatus.text("Enable"); 
+                    if(motionToggleStatus){
+                        socket.emit('toggleMotionSensor', false);
+                        $motionToggleStatus.text("Enable");
                         motionToggleStatus = false;
                     }
                     else{
-                        socket.emit('motionSensorStatus', true);
-                        $motionToggleStatus.text("Disable"); 
+                        socket.emit('toggleMotionSensor', true);
+                        $motionToggleStatus.text("Disable");
                         motionToggleStatus = true;
                     }
                 },
@@ -131,13 +131,13 @@
                     }
 
                 };
-            
+
             // Listeners
             socket.on('update', updateData);
             $ledToggleBtn.on('click', toggleLedStatus);
             $motionToggleBtn.on('click', toggleMotionStatus);
 
-        }());    
+        }());
 
 
     </script>
