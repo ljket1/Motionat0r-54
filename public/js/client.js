@@ -46,8 +46,6 @@ var updateData = function (data) {
   $totalLongMotions.text(data["longMotions"]);
 
   $delayThreshold.text(data["motionTimeout"]);
-  //todo: motionTimeout
-
 
   if (data["ledStatus"] == true) {
     $ledStatus.text("Disable");
@@ -76,4 +74,5 @@ $motionToggleBtn.on('click', toggleMotionStatus);
 
 function updateSliderValue(value) {
   document.getElementById("delayThreshold").innerHTML = value;
+  socket.emit('updateMotionTimeout', value)
 }

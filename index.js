@@ -72,12 +72,15 @@ board.on("ready", function () {
 
     socket.on('toggleLed', function (value) {
       data["ledStatus"] = value;
+      console.log("LED: Toggle -", value);
     });
     socket.on('toggleMotionSensor', function (value) {
       data["motionSensorStatus"] = value;
+      console.log("Motion Sensor: Toggle -", value);
     });
     socket.on('updateMotionTimeout', function (value) {
       data["motionTimeout"] = parseInt(value);
+      console.log("Motion Timeout Update:", value);
     });
   });
 });
