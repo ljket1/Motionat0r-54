@@ -1,4 +1,10 @@
 # Motionat0r-54
+
+## Libraries
+* Johnny-Five -  http://johnny-five.io/
+* Express - https://expressjs.com/
+* Socket.io - https://socket.io/
+
 ## Hardware Components
 * 1 x Arduino Uno
 * 1 x USB Cable A
@@ -21,3 +27,10 @@
 ### Server
 1. `npm install`
 2. `node index.js`
+
+
+## Features
+* Logs Motions - Short and Long
+* Adjustable Motion Determination (Minimum: 6 Seconds)
+* Turn LED on/off
+* Turn Motion Sensor on/off
