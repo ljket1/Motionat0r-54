@@ -14,13 +14,14 @@
 
 ## Hardware Setup
 ![Hardware diagram](https://github.com/ljket1/Motionat0r-54/blob/master/Hardware%20diagram.png)
-* LED Connections 
-	1. Connect positive end of LED to PIN 13 on the Arduino
-	2. Connect negative end of LED to GND pin on Arduino
-* PIR Sensor Connections
-	1. Connect 5V Arduino output to the 5V input on the PIR Sensor
-	2. Connect the GND pin on the PIR Sensor to the GND socket on the Arduino
-	3. Connect the Output pin on the PIR Sensor to PIN 2 on the Arduino
+### Hardware connections
+* LED 
+	* Connect positive end of LED to PIN 13 on the Arduino
+	* Connect negative end of LED to GND pin on Arduino
+* PIR Sensor
+	* Connect 5V Arduino output to the 5V input on the PIR Sensor
+	* Connect the GND pin on the PIR Sensor to the GND socket on the Arduino
+	* Connect the Output pin on the PIR Sensor to PIN 2 on the Arduino
 
 ## Instructions
 ### Arduino
