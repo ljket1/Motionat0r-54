@@ -21,7 +21,7 @@
 * PIR Sensor
 	* Connect 5V Arduino output to the 5V input on the PIR Sensor
 	* Connect the GND pin on the PIR Sensor to the GND socket on the Arduino
-	* Connect the Output pin on the PIR Sensor to PIN 2 on the Arduino.
+	* Connect the Output pin on the PIR Sensor to PIN 2 on the Arduino
 
 ## Instructions
 ### Arduino
